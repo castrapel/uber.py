@@ -16,7 +16,7 @@ INSTALL_REQUIRES = [
 
 setup(
     name='uber.py',
-    version='1.0.2',
+    version='1.0.3',
     author='Tal Shiri',
     author_email='eiopaa@gmail.com',
     url='http://github.com/tals/uber.py',

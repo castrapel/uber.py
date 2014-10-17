@@ -107,7 +107,7 @@ class TestUberClient(unittest.TestCase):
             .should_receive('_send_message')
             .with_args('Login', params={'password': '1122334455', 'email': 'aaa'})
             .and_return({
-                'token': '12345'
+                'client': {'token': '12345'}
             })
         )
 

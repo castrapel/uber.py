@@ -41,7 +41,7 @@ class UberClient(object):
         }
 
         response = uber_client._send_message(MessageTypes.LOGIN, params=data)
-        return response['token']
+        return response['client']['token']
 
     def delete_payment_profile(self, payment_profile):
         """
