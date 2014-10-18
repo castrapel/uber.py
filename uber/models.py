@@ -52,8 +52,8 @@ class SystemMessage(Model):
 
 
 class SimpleLocation(Model):
-    latitude = Field('latitude')
-    longitude = Field('longitude')
+    latitude = FloatField('latitude')
+    longitude = FloatField('longitude')
 
 
 class VehicleLocation(SimpleLocation):
@@ -65,15 +65,15 @@ class VehicleLocation(SimpleLocation):
 
 
 class Fare(Model):
-    id = Field('id')
-    speed_threshold_mps = Field('speedThresholdMps')
-    base = Field('base')
-    per_minute = Field('perMinute')
-    per_distance_unit = Field('perDistanceUnit')
-    distance_unit = Field('distanceUnit')
-    type = Field('type')
-    minimum = Field('minimum')
-    cancellation = Field('cancellation')
+    id = NumberField('id')
+    speed_threshold_mps = NumberField('speedThresholdMps')
+    base = StringField('base')
+    per_minute = StringField('perMinute')
+    per_distance_unit = StringField('perDistanceUnit')
+    distance_unit = StringField('distanceUnit')
+    type = StringField('type')
+    minimum = StringField('minimum')
+    cancellation = StringField('cancellation')
 
 
 class Place(Model):
@@ -88,7 +88,7 @@ class Place(Model):
     # 'Gym at 353 king st'
     nickname = StringField('nickname')
 
-    formatted_address = Field('formatted_address')
+    formatted_address = StringField('formatted_address')
 
     distance = FloatField('distance')
     latitude = FloatField('latitude')
@@ -99,7 +99,7 @@ class Place(Model):
 
 
 class Image(Model):
-    url = Field('url')
+    url = StringField('url')
     width = NumberField('width')
     height = NumberField('height')
 
@@ -116,13 +116,13 @@ class Surge(Model):
     fare_id = NumberField('fareId')
     multiplier = FloatField('multiplier')
     expiration_time = NumberField('expirationTime')
-    base_fee = Field('base')
-    per_distance_unit = Field('perDistanceUnit')
-    distance_unit = Field('distanceUnit')
-    per_minute = Field('perMinute')
+    base_fee = StringField('base')
+    per_distance_unit = StringField('perDistanceUnit')
+    distance_unit = StringField('distanceUnit')
+    per_minute = StringField('perMinute')
     speed_threshold_mps = NumberField('speedThresholdMps')
-    minimum_fee = Field('minimum')
-    cancellation_fee = Field('cancellation')
+    minimum_fee = StringField('minimum')
+    cancellation_fee = StringField('cancellation')
     web_view = ModelField('webView', WebView)
 
 
@@ -133,27 +133,27 @@ class VehicleView(Model):
     mono_images = ListField('monoImages', Image)
 
     # "Black Car", "SUV", "UberX", "TAXI"
-    description = Field('description')
+    description = StringField('description')
 
-    pickup_eta_string = Field('pickupEtaString')
+    pickup_eta_string = StringField('pickupEtaString')
     allow_fare_estimate = BooleanField('allowFareEstimate')
     max_fare_splits = NumberField('maxFareSplits')
 
     capacity = NumberField('capacity')
-    fare_details_url = Field('fareDetailsUrl', optional=True)
+    fare_details_url = StringField('fareDetailsUrl', optional=True)
     surge = ModelField('surge', Surge, optional=True)
 
     # ui strings
-    confirm_pickup_button_string = Field('confirmPickupButtonString')
-    set_pickup_location_string = Field('setPickupLocationString')
-    request_pickup_button_string = Field('requestPickupButtonString')
-    pickup_button_string = Field('pickupButtonString')
-    none_available_string = Field('noneAvailableString')
+    confirm_pickup_button_string = StringField('confirmPickupButtonString')
+    set_pickup_location_string = StringField('setPickupLocationString')
+    request_pickup_button_string = StringField('requestPickupButtonString')
+    pickup_button_string = StringField('pickupButtonString')
+    none_available_string = StringField('noneAvailableString')
 
 
 class City(Model):
-    name = Field('cityName')
-    currency_code = Field('currencyCode')
+    name = StringField('cityName')
+    currency_code = StringField('currencyCode')
 
     # all the vehicle types
     vehicle_views = DictField('vehicleViews', VehicleView, key=int)
@@ -162,10 +162,10 @@ class City(Model):
 
 
 class NearbyVehicles(Model):
-    eta_string = Field('etaString', optional=True)
-    eta_string_short = Field('etaStringShort', optional=True)
+    eta_string = StringField('etaString', optional=True)
+    eta_string_short = StringField('etaStringShort', optional=True)
     min_eta = NumberField('minEta', optional=True)
-    sorry_message = Field('sorryMsg', optional=True)
+    sorry_message = StringField('sorryMsg', optional=True)
     vehicle_paths = DictField('vehiclePaths', lambda x: [VehicleLocation(location) for location in x], optional=True)
 
     @property
@@ -175,15 +175,15 @@ class NearbyVehicles(Model):
 
 class PaymentProfile(Model):
     id = NumberField('id')
-    billing_country_iso2 = Field('billingCountryIso2', optional=True)
-    card_type = Field('cardType')
-    card_number = Field('cardNumber')
-    account_name = Field('accountName', optional=True)
-    token_type = Field('tokenType', optional=True)
+    billing_country_iso2 = StringField('billingCountryIso2', optional=True)
+    card_type = StringField('cardType')
+    card_number = StringField('cardNumber')
+    account_name = StringField('accountName', optional=True)
+    token_type = StringField('tokenType', optional=True)
     card_expiration = DateTimeField('cardExpiration')
 
     # personal/business(?)
-    use_case = Field('useCase')
+    use_case = StringField('useCase')
 
 
 class Experiment(Model):
@@ -220,13 +220,13 @@ class Driver(Model):
     # never saw this set to True.
     display_company = BooleanField('displayCompany')
 
-    partner_company = Field('partnerCompany')
+    partner_company = StringField('partnerCompany')
     location = ModelField('location', SimpleLocation)
     rating = FloatField('rating')
     status = Field('status')
-    phone = Field('mobile')
-    name = Field('name')
-    picture_url = Field('pictureUrl')
+    phone = StringField('mobile')
+    name = StringField('name')
+    picture_url = StringField('pictureUrl')
 
 
 class FeedbackType(Model):
@@ -238,20 +238,20 @@ class FeedbackType(Model):
 class VehicleType(Model):
     id = NumberField('id')
     capacity = NumberField('capacity')
-    make = Field('make')
-    model = Field('model')
+    make = StringField('make')
+    model = StringField('model')
 
 
 class Vehicle(Model):
     uuid = Field('uuid')
 
     vehicle_type = ModelField('vehicleType', VehicleType)
-    exterior_color = Field('exteriorColor')
-    interior_color = Field('interiorColor')
-    license_plate = Field('licensePlate')
+    exterior_color = StringField('exteriorColor')
+    interior_color = StringField('interiorColor')
+    license_plate = StringField('licensePlate')
 
     license_plate_country_id = Field('licensePlateCountryId')
-    license_plate_state = Field('licensePlateState')
+    license_plate_state = StringField('licensePlateState')
     vehicle_view_id = Field('vehicleViewId')
     year = NumberField('year')
 
@@ -310,38 +310,38 @@ class Client(Model):
     credit_balances = ListField('creditBalances', CreditBalance)
     payment_profiles = ListField('paymentProfiles', PaymentProfile)
     fare_split_fee_string = Field('fareSplitFeeString')
-    last_selected_payment_profile_id = Field('lastSelectedPaymentProfileId')
-    mobile_digits = Field('mobileDigits')
+    last_selected_payment_profile_id = NumberField('lastSelectedPaymentProfileId')
+    mobile_digits = StringField('mobileDigits')
     is_admin = BooleanField('isAdmin')
     role = Field('role')
-    referral_code = Field('referralCode')
-    email = Field('email')
-    picture_url = Field('pictureUrl')
-    referral_url = Field('referralUrl')
-    first_name = Field('firstName')
+    referral_code = StringField('referralCode')
+    email = StringField('email')
+    picture_url = StringField('pictureUrl')
+    referral_url = StringField('referralUrl')
+    first_name = StringField('firstName')
 
     # "US"
-    mobile_country_iso2 = Field('mobileCountryIso2')
+    mobile_country_iso2 = StringField('mobileCountryIso2')
 
-    mobile = Field('mobile')
-    last_name = Field('lastName')
+    mobile = StringField('mobile')
+    last_name = StringField('lastName')
     mobile_country_id = NumberField('mobileCountryId')
-    login_token = Field('token')
+    login_token = StringField('token')
     has_to_opt_in_sms_notifications = BooleanField('hasToOptInSmsNotifications')
 
     # phone country code (+1 for US)
-    mobile_country_code = Field('mobileCountryCode')
+    mobile_country_code = StringField('mobileCountryCode')
 
     promotion = Field('promotion')
     has_confirmed_mobile = BooleanField('hasConfirmedMobile')
 
     # a value from ClientStatus
-    status = Field('status', optional=True)
+    status = StringField('status', optional=True)
 
     # a value from RequestNote
-    last_request_note = Field('lastRequestNote', optional=True)
+    last_request_note = StringField('lastRequestNote', optional=True)
 
-    last_request_msg = Field('lastRequestMsg', optional=True)
+    last_request_msg = StringField('lastRequestMsg', optional=True)
 
     @property
     def active_experiments(self):
