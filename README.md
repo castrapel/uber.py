@@ -5,6 +5,7 @@ uber.py - a Python client for [Uber]
 
 [![Build Status](https://secure.travis-ci.org/tals/uber.py.png?branch=master)](http://travis-ci.org/tals/uber.py)
 
+#### ⚠⚠⚠ UPDATE: Uber now has an [official API](https://developer.uber.com). Please use it instead ⚠⚠⚠ ####
 
 Usage example:
 ```python
